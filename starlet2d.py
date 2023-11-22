@@ -20,11 +20,11 @@ def fft(X):
     """
 
     if len(np.shape(X)) == 1:
-        size = np.int(np.sqrt(len(X)))
+        size = int(np.sqrt(len(X)))
         return np.fft.fftshift(np.fft.fft2(np.reshape(X, (size, size)))).flatten()
 
     n = np.shape(X)[0]
-    size = np.int(np.sqrt(np.shape(X)[1]))
+    size = int(np.sqrt(np.shape(X)[1]))
     return np.reshape(np.fft.fftshift(np.fft.fft2(np.reshape(X, (n, size, size))), axes=(1, 2)), (n, size**2))
 
 
@@ -47,11 +47,11 @@ def ifft(Xfft):
     """
 
     if len(np.shape(Xfft)) == 1:
-        size = np.int(np.sqrt(len(Xfft)))
+        size = int(np.sqrt(len(Xfft)))
         return np.fft.ifft2(np.fft.fftshift(np.reshape(Xfft, (size, size)))).flatten().real
 
     n = np.shape(Xfft)[0]
-    size = np.int(np.sqrt(np.shape(Xfft)[1]))
+    size = int(np.sqrt(np.shape(Xfft)[1]))
     return np.reshape(np.fft.ifft2(np.fft.ifftshift(np.reshape(Xfft, (n, size, size)), axes=(1, 2))), (n, size**2)).real
 
 
@@ -185,7 +185,7 @@ def get_wt_filters(p=16384, nscales=3, size=None):
     """
 
     if size is None:
-        size = np.int(np.sqrt(p))
+        size = int(np.sqrt(p))
     wt_filters = np.ones((size**2, nscales + 1))
     wt_filters[:, 1:] = np.array([compute_h(size, 2**scale) for scale in range(nscales)]).T
     wt_filters[:, :nscales] -= wt_filters[:, 1:(nscales + 1)]
@@ -244,7 +244,7 @@ def wt_trans(inputs, nscales=3, fft_in=False, fft_out=False):
 
     scale = 1
     for j in range(nscales):
-        h = compute_h(np.int(np.sqrt(size2)), scale)
+        h = compute_h(int(np.sqrt(size2)), scale)
         if not fft_out:
             m = ifft(fftprod(Xfft, h))
         else:

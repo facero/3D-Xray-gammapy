@@ -251,7 +251,7 @@ def sgmca(X, n, **kwargs):
                 # Support based threshold
                 if K != 1:
                     npix = np.sum(abs(Swtij) - thrd > 0)
-                    Kval = np.maximum(np.int(K * npix), 5)
+                    Kval = np.maximum(int(K * npix), 5)
                     thrd = np.partition(abs(Swtij), p - Kval)[p - Kval]
 
                 if verb >= 4:
@@ -351,7 +351,7 @@ def sgmca(X, n, **kwargs):
                 output = IAEModels[l].fast_interpolation(spectrum[np.newaxis, :])
                 # Save the identified spectrum, the source-to-model map and the starting point
                 M[it_map, :] = np.squeeze(output['XRec'])
-                IAEModelsInfo[l]['sources'] = np.append(IAEModelsInfo[l]['sources'], np.int(not_mapped_sources[j]))
+                IAEModelsInfo[l]['sources'] = np.append(IAEModelsInfo[l]['sources'], int(not_mapped_sources[j]))
                 counter[l] -= 1
                 IAEModelsInfo[l]['Lambda0'] = np.vstack([IAEModelsInfo[l]['Lambda0'], output['Lambda']])
                 IAEModelsInfo[l]['Amplitude0'] = np.append(IAEModelsInfo[l]['Amplitude0'], output['Amplitude'])
